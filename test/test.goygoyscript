@@ -1,0 +1,10 @@
+dene {
+    uyarı('Karar veriyorum...');
+    kararlar();
+} yakala (istisna) {
+    uyarı('Grup tartismasi baslar');
+    grupTartismasi();
+} sonunda {
+    uyarı('PES!');
+}
+

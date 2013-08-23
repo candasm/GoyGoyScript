@@ -1,0 +1,28 @@
+// Convert from JavaScript to FikaScript
+
+prompt('What is your favourite Mabel Matiz album?');
+
+month = 'august';
+if (month != 'july' && month != 'june') {
+  feeling = 'depressed';
+  hair  = 'blonde';
+} else {
+  feeling = 'happy';
+  hair  = 'blonde';
+}
+
+var isimler = [
+  'Emir',
+  'Adem',
+  'Fatih',
+  'Osman',
+  ];
+
+for (i in isimler) {
+  console.log(isimler[i]);
+}
+
+birGun = 0;
+do {
+  birGun++;
+} while(birGun <= 24);

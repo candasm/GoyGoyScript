@@ -1,0 +1,452 @@
+<html>
+<head>
+  <title>GoyGoyScript: Write JavaScript in Turkish</title>
+  <meta charset="utf-8">
+  <link rel="icon" 
+      type="image/png" 
+      href="assets/img/favicon.ico">
+  <meta name="description" content="Write JavaScript in Turkish">
+  <meta name="keywords" content="GoyGoyScript, Turkish, JavaScript">
+  <meta name="author" content="Emir Karşıyakalı">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
+  <link rel="stylesheet" type="text/css" href="assets/css/codemirror.css">
+  <script type="text/javascript" src="dist/goygoyscript.js"></script>
+  <script type="text/javascript" src="assets/js/codemirror.js"></script>
+  <script type="text/javascript" src="assets/js/codemirror-javascript.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Lilita+One' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <style type="text/css">
+
+    #logo {
+      color: #FFF;
+      font-family: 'Lilita One', cursive;
+      text-shadow: 0px 2px 0px black;
+      font-size: 40px;
+      padding-top: 20px;
+    }
+
+    h3 {
+      margin-bottom: -23px;
+    }
+
+    footer {
+      color: #f3f3f3;
+      margin-top: 10px;
+      padding-bottom: 12px;
+      font-size: 12px;
+    }
+
+    footer hr {
+      width: 85px;
+    }
+
+    body {
+      background: #e30a17;
+      padding: 0px;
+      margin:  0px;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .editor {
+      height: 100%;
+      width: 50%;
+    }
+
+    .CodeMirror {
+      border: 1px solid #c6c7c7;
+      height: 600px;
+      width: 100%;
+    }
+
+
+    #editor-window {
+      background: #f1f0f2;
+      position: relative;
+      padding: 1px;
+      padding-right: 3px;
+      padding-bottom: 3px;
+      width: 100%;
+      height: 600px;
+      padding: 5px 7px 7px 5px;
+      border: 1px solid #aaa;
+      -webkit-border-radius: 3px;
+      -webkit-border-top-right-radius: 5px;
+      -moz-border-radius: 3px;
+      -moz-border-radius-topright: 5px;
+      border-radius: 3px;
+      border-top-right-radius: 5px;
+      -webkit-box-shadow: 0 9px 6px -6px #333;
+        -moz-box-shadow:  0 9px 6px -6px  #333;
+             box-shadow:  0 9px 6px -6px  #333;
+    }
+
+
+    #container {
+      width: 80%;
+      max-width: 900px;
+      height: 100%;
+      margin: 0px auto;
+    }
+
+    .input {
+      float: left;
+    }
+
+    .output {
+      float: right;
+    }
+
+    .tabs {
+      position: relative;
+      margin: 0px;
+      padding: 0px;
+      top: 1px;
+      left: 10px;
+    }
+    .tab {
+      width: 100px;
+      height: 20px;
+      cursor: pointer;
+      position: relative;
+      background: #f1f0f2;
+      list-style: none;
+      display: inline-block;
+      border: 1px solid #777;
+      border-bottom: none;
+      -webkit-border-top-right-radius: 5px;
+      -webkit-border-top-left-radius: 5px;
+      -moz-border-radius-topright: 5px;
+      -moz-border-radius-topleft: 5px;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+      font-family: 'Lato', sans-serif;
+      font-size: 12px;
+      text-align: center;
+      padding-top: 4px;
+      color: #777;
+      background: #ffffff; /* Old browsers */
+      background: -moz-linear-gradient(top,  #ffffff 0%, #dddddd 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#dddddd)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  #ffffff 0%,#dddddd 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top,  #ffffff 0%,#dddddd 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top,  #ffffff 0%,#dddddd 100%); /* IE10+ */
+      background: linear-gradient(to bottom,  #ffffff 0%,#dddddd 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dddddd',GradientType=0 ); /* IE6-9 */
+
+    }
+
+    .tab:hover {
+      opacity: 0.95;
+      -webkit-user-select: none;  
+      -moz-user-select: none;    
+      -ms-user-select: none;      
+      user-select: none;
+    }
+
+    .tab.active:hover {
+      opacity: 1;
+    }
+
+    .tab.active {
+      border: 1px solid #aaa;
+      border-bottom: none;
+      z-index: 10000;
+      color: #444;
+
+      background: #ffffff; /* Old browsers */
+      background: -moz-linear-gradient(top,  #ffffff 0%, #eaeaea 47%, #f1f0f2 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#eaeaea), color-stop(100%,#f1f0f2)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  #ffffff 0%,#eaeaea 47%,#f1f0f2 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top,  #ffffff 0%,#eaeaea 47%,#f1f0f2 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top,  #ffffff 0%,#eaeaea 47%,#f1f0f2 100%); /* IE10+ */
+      background: linear-gradient(to bottom,  #ffffff 0%,#eaeaea 47%,#f1f0f2 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f1f0f2',GradientType=0 ); /* IE6-9 */
+    }
+
+    #pages {
+      width: 100%;
+      height: 600px;
+      position: relative;
+    }
+
+    .page {
+      visibility: hidden;
+      background: white;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+    }
+
+    #docs {
+      border: 1px solid #c6c7c7;
+      overflow: scroll;
+    }
+
+    .translations  {
+      border-spacing:0;
+      border-collapse:collapse;
+      color: rgb(75, 75, 75);
+      width: 100%;
+      margin: 30px 0px;
+    }
+
+    .translations tbody > tr:nth-child(odd) > td, .translations tbody > tr:nth-child(odd) > th {
+      background: #fafafa;
+    }
+
+  /*  #translations td:first-child {
+      text-align: right;
+    }*/
+    .translations td, .translations th  {
+      width: 50%;
+      border: 1px solid #eee;
+      padding: 5px;
+    }
+
+    .content {
+      height: 100%;
+      padding: 20px;
+      font-size: 14px;
+      color: rgb(75, 75, 75);
+    }
+
+    .page.visible {
+      visibility: visible;
+    }
+
+    .errors {
+      display: none;
+      left: 50%;
+      height: 30px;
+      background: #d53535;
+      width: 50%;
+      position: absolute;
+      z-index: 100000;
+      border: #962626;
+      padding: 1px;
+      color: white;
+      vertical-align: middle;
+      bottom: 0px;
+      font-size: 14px;
+    }
+
+    .errors p {
+      padding: 5px;
+      margin: 0px;
+    }
+
+    footer a, footer a:link, footer a:active, footer a:visited {
+        color: white;
+        text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    #social-btns {
+      margin-top: 5px;
+    }
+
+    .runBtn {
+      position: absolute;
+      right: 20px;
+      bottom: 7px;
+      color: grey;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .runBtn:hover{
+      opacity: 0.6;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+  <div id="container">
+    <h1 id="logo">GoyGoyScript</h1>
+    <ul class="tabs">
+      <li class="tab active" data-tab="tr-eng">
+        TR &#8594; ENG
+      </li>
+      <li class="tab" data-tab="eng-tr">
+        ENG &#8594; TR
+      </li>
+      <li class="tab" data-tab="docs">
+        Docs
+      </li>
+    </ul>
+    <div id="editor-window">
+      <div id="pages">
+        <div class="page visible" id="tr-eng">
+          <div class="editor input"></div>
+          <div class="errors">
+            <p></p>
+          </div>
+          <div class="editor output"></div>
+          <div class="runBtn">Run</div>
+        </div>
+
+        <div class="page" id="eng-tr">
+          <div class="editor input"></div>
+          <div class="errors">
+            <p></p>
+          </div>
+          <div class="editor output"></div>
+          <div class="runBtn">Run</div>
+        </div>
+  
+        <div class="page" id="docs">
+          <div class="content">
+            <h2>GoyGoyScript</h2>
+            <p>GoyGoyScript lets you write JavaScript in Turkish; Finally there is a way for Turks to code in their native language!
+            It is named after <a href="https://eksisozluk.com/goygoy--91713" target="_blank"><strong>GoyGoy</strong></a>, the sacred Turkish schmooze.</p>
+            <h2>Translations</h2>
+            <h3>Keywords</h3>
+            <table id="translation-keywords" class="translations">
+              <tr>
+                <th>English</th>
+                <th>Turkish</th>
+              </tr>
+            </table>
+            <h3>Literals</h3>
+            <table id="translation-literals" class="translations">
+              <tr>
+                <th>English</th>
+                <th>Turkish</th>
+              </tr>
+            </table>
+            <h3>Identifiers</h3>
+            <table id="translation-identifiers" class="translations">
+              <tr>
+                <th>English</th>
+                <th>Turkish</th>
+              </tr>
+            </table>
+            <h2>Missing a translation?</h2>
+            <p><a href="http://github.com/emir/GoyGoyScript" target="_blank">Submit a pull request on Github</a></p>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      GoyGoyScript, <a href="http://github.com/pushmatrix/fikascript" target="_blank">Forked by Daniel's "FikaScript" Project on GitHub</a>
+      <div id='social-btns'>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="GoyGoyScript: Finally there is a way for Turkish to write JavaScript in Turkish." data-count="none" data-hashtags="sweden">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <div class="fb-like" data-href="http://emirkarsiyakali.kd.io/goygoyscript" data-width="10" data-layout="button_count" data-show-faces="false" data-send="false"></div>
+      </div>
+    </footer>
+  </div>
+
+<script type="text/javascript">
+    populateTranslationTables = function(types) {
+      for(type in types) {
+        type = types[type];
+        var table = $("#translation-" + type);
+        for (key in GS[type]) {
+          table.append("<tr><td>" + key + "</td><td>" + GS.turkishTokens[key] + "</td></tr>");
+        }
+      }
+    }
+
+    setupCodeMirror = function(type) {
+      var input = CodeMirror($('#' + type + ' .input')[0], { lineNumbers: true });
+      var output = CodeMirror($('#' + type + ' .output')[0], { readOnly: true });
+
+      input.on("change", function(cm, change) {
+        var text = cm.getValue();
+        var errorsClass = $('#' + type + ' .errors');
+        try {
+          if (type == 'tr-eng') {
+            result = GS.turkishToEnglish(text);
+          } else {
+            result = GS.englishToTurkish(text);
+          }
+          output.setValue(result);
+          errorsClass.hide();
+        } catch (e) {
+          errorsClass.show();
+          errorsClass.find('p').html(e.toString());
+        }
+      });
+      editors[type] = input;
+      editors[type + '-output'] = output;
+      return input;
+    }
+
+    isOnMobile = function() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    selectPage = function(page) {
+      $(".page").removeClass('visible');
+      $("#" + page).addClass('visible');
+      if (editor = editors[page]) {
+        if (!isOnMobile) editor.focus();
+      }
+    }
+    $().ready(function() {
+
+      populateTranslationTables(['keywords', 'literals', 'identifiers']);
+      editors = {};
+      setupCodeMirror("tr-eng");
+      setupCodeMirror("eng-tr");
+      selectPage('tr-eng');
+
+      $.get("assets/sampleTurkish.txt", function(val) {
+        editors['tr-eng'].setValue(val);
+        editors['tr-eng'].setCursor(1);
+      });
+
+      $.get("assets/sampleEnglish.txt", function(val) {
+        editors['eng-tr'].setValue(val);
+
+        editors['eng-tr'].setCursor(2);
+      });
+
+      $('.tab').click(function() {
+        $('.tab').removeClass('active');
+        $(this).addClass('active');
+        var page = $(this).data('tab');
+        selectPage(page);
+      });
+
+      $('.runBtn').click(function() {
+        var page = $(this).parents('.page').attr('id');
+        var code = '';
+        if (page == 'eng-tr') {
+          code = editors['eng-tr'].getValue();
+        } else {
+          code = editors['tr-eng-output'].getValue();
+        }
+        eval(code);
+      });
+    });
+
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36244524-1', 'http://emirkarsiyakali.kd.io/goygoyscript');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
