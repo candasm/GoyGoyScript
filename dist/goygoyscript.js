@@ -14,7 +14,7 @@ GS.keywords = {
        let: 'let',
        new: 'yeni',
        try: 'dene',
-      case: 'durumlar',
+      case: 'durum',
       this: 'bu',
       with: 'ile',
      break: 'kır',
